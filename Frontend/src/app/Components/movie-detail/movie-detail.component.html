@@ -1,0 +1,41 @@
+<form [formGroup]="this.formGroup" (ngSubmit)="submit()">
+  <div class='card'>
+    <div class='card-header' *ngIf="(this.result$ | async) as response; else loading">
+      {{this.pageTitle + ': ' + response.body?.title}}
+      <button class="btn btn-primary" type="submit" [disabled]="!this.formGroup.valid">Speichern</button>
+    </div>
+    <div class="container">
+      <div class="card-body">
+          <!-- Form Group (username)-->
+          <div class="mb-3">
+            <label class="small mb-1" for="id">Id</label>
+            <input class="form-control" id="id" formControlName="id" type="text" readonly>
+          </div>
+          <!-- Form Row-->
+          <div class="row gx-3 mb-3">
+            <!-- Form Group (first name)-->
+            <div class="col-md-6">
+              <label class="small mb-1" for="title">Titel</label>
+              <input class="form-control" id="title" formControlName="title" type="text" placeholder="Titel eingeben">
+            </div>
+            <!-- Form Group (last name)-->
+            <div class="col-md-6">
+              <label class="small mb-1" for="mediaTypeId">Medientyp</label>
+              <select class="form-control custom-select" id="mediaTypeId" formControlName="mediaTypeId"
+                      *ngIf="(this.mediaTypes$ | async) as mediaTypes">
+                <option *ngFor='let mediaType of mediaTypes.body; let i = index;'
+                        [value]="mediaType.id">{{mediaType.name}}</option>
+              </select>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</form>
+<ng-template #loading>
+  <div class="d-flex justify-content-center">
+    <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+      <span class="sr-only"></span>
+    </div>
+  </div>
+</ng-template>
