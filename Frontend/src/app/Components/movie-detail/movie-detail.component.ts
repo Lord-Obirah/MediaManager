@@ -4,7 +4,7 @@ import {IMovie} from "../../interfaces/movie";
 import {DataService} from "../../services/data.service";
 import {Observable, tap} from "rxjs";
 import {HttpResponse} from "@angular/common/http";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {UntypedFormBuilder, UntypedFormGroup, Validators} from "@angular/forms";
 import {IMediaType} from "../../interfaces/mediatype";
 
 @Component({
@@ -16,12 +16,12 @@ export class MovieDetailComponent implements OnInit {
   public result$: Observable<HttpResponse<IMovie>> = new Observable<HttpResponse<IMovie>>();
   public mediaTypes$: Observable<HttpResponse<IMediaType[]>> = new Observable<HttpResponse<IMediaType[]>>();
 
-  public formGroup: FormGroup;
+  public formGroup: UntypedFormGroup;
 
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,
               private dataService: DataService,
-              protected formBuilder: FormBuilder) {
+              protected formBuilder: UntypedFormBuilder) {
 
     this.formGroup = this.formBuilder.group({
       id: [],
