@@ -10,6 +10,8 @@ import {MovieDetailComponent} from './Components/movie-detail/movie-detail.compo
 import {ListPaginationComponent} from "./shared/list-pagination/list-pagination.component";
 import {HomeComponent} from './components/home/home.component';
 import {RouterModule} from "@angular/router";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {ToastrModule} from "ngx-toastr";
 
 @NgModule({
   declarations: [

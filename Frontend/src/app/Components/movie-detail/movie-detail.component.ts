@@ -6,6 +6,7 @@ import {Observable, tap} from "rxjs";
 import {HttpResponse} from "@angular/common/http";
 import {UntypedFormBuilder, UntypedFormGroup, Validators} from "@angular/forms";
 import {IMediaType} from "../../interfaces/mediatype";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   templateUrl: './movie-detail.component.html',
@@ -21,7 +22,8 @@ export class MovieDetailComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,
               private dataService: DataService,
-              protected formBuilder: UntypedFormBuilder) {
+              protected formBuilder: UntypedFormBuilder,
+              private toastr: ToastrService) {
 
     this.formGroup = this.formBuilder.group({
       id: [],
@@ -45,17 +47,18 @@ export class MovieDetailComponent implements OnInit {
   submit() {
     if (this.formGroup.valid) {
       console.log(this.formGroup.value);
-      this.dataService.updateData<IMovie>('movies', this.formGroup.value.id, this.formGroup.value).subscribe(
-        res => {
+      this.dataService.updateData<IMovie>('movies', this.formGroup.value.id, this.formGroup.value).subscribe({
+        next: (res) =>
+        {
           this.router.navigate(['/movies']);
+          this.toastr.success(`Speichern erfolgreich: ${res.body?.title}`)
         },
-        err => console.log('HTTP Error', err),
-        () => console.log('HTTP request completed.')
-      );
-      // .subscribe(
-      //   x => this.router.navigate(['/movies'],
-      //   err => console.error(err);
-      // );
+        error: (err) => {
+          console.log('HTTP Error', err);
+          this.toastr.error(`${err}`)
+        },
+        complete: () => console.log('HTTP request completed.')
+      });
     }
   }
 }

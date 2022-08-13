@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {catchError, map, Observable, of, tap, throwError} from "rxjs";
 import {HttpClient, HttpErrorResponse, HttpResponse} from "@angular/common/http";
 import {IQueryParameter} from "../interfaces/queryParameter";
+import {ToastrService} from "ngx-toastr";
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,8 @@ export class DataService {
 
   public apiUrl: string = 'http://localhost:5002/api'
 
-  constructor(private http: HttpClient) { } //TODO Destroy object to unsubscibe
+  constructor(private http: HttpClient,
+              private toastr: ToastrService) { } //TODO Destroy object to unsubscibe
 
   public updateData<T>(entityType: string, id: string, data: T): Observable<HttpResponse<T>> {
     let url = this.getUrl(entityType, id);
@@ -37,7 +39,7 @@ export class DataService {
       return this.http.get<T[]>(url, { observe: 'response' })
         .pipe(
         tap(data => console.log('All: ', JSON.stringify(data, null, 4))),
-        catchError(this.handleError)
+          catchError(this.handleError)
       );
   }
 
@@ -70,7 +72,7 @@ export class DataService {
     return `${this.apiUrl}/${entityType}${(id ? `/${id}` : '')}${getParams}`;
   }
 
-  private handleError(error: HttpErrorResponse) {
+  private handleError<T>(error: HttpErrorResponse): Observable<never> {
     let errorMessage = '';
     if(error.error instanceof ErrorEvent) {
       errorMessage = `An error occurred: ${error.error.message}`;
@@ -78,6 +80,7 @@ export class DataService {
       errorMessage = `Server returned code: ${error.status}, error message is: ${error.message}`
     }
     console.error(errorMessage);
+    //this.toastr.error(errorme)
     return throwError(() => new Error(errorMessage))
   }
 }
