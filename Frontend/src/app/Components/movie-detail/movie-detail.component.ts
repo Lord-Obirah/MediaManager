@@ -6,7 +6,7 @@ import {Observable, tap} from "rxjs";
 import {HttpResponse} from "@angular/common/http";
 import {UntypedFormBuilder, UntypedFormGroup, Validators} from "@angular/forms";
 import {IMediaType} from "../../interfaces/mediatype";
-import {ToastrService} from "ngx-toastr";
+import {NotificationService} from "../../services/notification.service";
 
 @Component({
   templateUrl: './movie-detail.component.html',
@@ -23,7 +23,7 @@ export class MovieDetailComponent implements OnInit {
               private router: Router,
               private dataService: DataService,
               protected formBuilder: UntypedFormBuilder,
-              private toastr: ToastrService) {
+              private notificationService: NotificationService) {
 
     this.formGroup = this.formBuilder.group({
       id: [],
@@ -51,11 +51,11 @@ export class MovieDetailComponent implements OnInit {
         next: (res) =>
         {
           this.router.navigate(['/movies']);
-          this.toastr.success(`Speichern erfolgreich: ${res.body?.title}`)
+          this.notificationService.success(`Speichern erfolgreich: ${res.body?.title}`)
         },
         error: (err) => {
           console.log('HTTP Error', err);
-          this.toastr.error(`${err}`)
+          this.notificationService.error(`${err}`)
         },
         complete: () => console.log('HTTP request completed.')
       });
