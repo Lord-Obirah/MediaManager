@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {IPaginationHeader} from "../../interfaces/paginationHeader";
 import {IQueryParameter} from "../../interfaces/queryParameter";
-import {debounceTime, distinctUntilChanged, map, mergeMap, Subject, tap} from "rxjs";
+import {debounceTime, distinctUntilChanged, map, mergeMap, Observable, Subject, tap} from "rxjs";
 
 @Component({
   selector: 'app-list-pagination',
@@ -36,7 +36,7 @@ export class ListPaginationComponent implements OnInit, OnDestroy {
         {
           this.paginationHeader.currentPage = this.paginationHeader.currentPageLink.page;
         }
-      }));
+      })).subscribe();
   }
 
   public onClick(event: IQueryParameter | undefined): void
