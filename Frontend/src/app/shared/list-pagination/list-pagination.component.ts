@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
-import {IPaginationHeader} from "../../interfaces/paginationHeader";
-import {IQueryParameter} from "../../interfaces/queryParameter";
+import {IPaginationHeader} from "../interfaces/paginationHeader";
+import {IQueryParameter} from "../interfaces/queryParameter";
 import {debounceTime, distinctUntilChanged, map, mergeMap, Observable, Subject, tap} from "rxjs";
 
 @Component({

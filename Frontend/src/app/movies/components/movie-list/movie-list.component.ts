@@ -1,11 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {DataService} from "../../services/data.service";
-import {IMovieList} from "../../interfaces/movieList";
-import {BehaviorSubject, debounceTime, mergeMap, Observable, tap} from "rxjs";
 import {HttpResponse} from "@angular/common/http";
-import {IPaginationHeader} from "../../interfaces/paginationHeader";
-import {IQueryParameter} from "../../interfaces/queryParameter";
-import {QueryParameterService} from "../../services/query-parameter.service";
+import {BehaviorSubject, debounceTime, mergeMap, Observable, tap} from "rxjs";
+import {IMovieList} from "../../interfaces/movieList";
+import {IPaginationHeader} from "../../../shared/interfaces/paginationHeader";
+import {IQueryParameter} from "../../../shared/interfaces/queryParameter";
+import {DataService} from "../../../shared/services/data.service";
 
 @Component({
   templateUrl: './movie-list.component.html',

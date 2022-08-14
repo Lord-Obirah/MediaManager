@@ -67,8 +67,7 @@
   <ItemGroup>
     <Folder Include="Exceptions" />
     <Folder Include="FrontEnd" />
-    <Folder Include="FrontEnd\src\app\components" />
-    <Folder Include="FrontEnd\src\app\pipes" />
+    <Folder Include="FrontEnd\src\app\movies\components" />
     <Folder Include="FrontEnd\src\app\shared" />
   </ItemGroup>
 

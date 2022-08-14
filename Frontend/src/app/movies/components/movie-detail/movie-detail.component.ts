@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {IMovie} from "../../interfaces/movie";
-import {DataService} from "../../services/data.service";
-import {Observable, tap} from "rxjs";
 import {HttpResponse} from "@angular/common/http";
 import {UntypedFormBuilder, UntypedFormGroup, Validators} from "@angular/forms";
+import {Observable, tap} from "rxjs";
+import {IMovie} from "../../interfaces/movie";
 import {IMediaType} from "../../interfaces/mediatype";
-import {NotificationService} from "../../services/notification.service";
+import {DataService} from "../../../shared/services/data.service";
+import {NotificationService} from "../../../shared/services/notification.service";
 
 @Component({
   templateUrl: './movie-detail.component.html',
