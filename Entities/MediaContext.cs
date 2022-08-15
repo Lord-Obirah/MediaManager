@@ -14,8 +14,10 @@ namespace MediaManager.Entities
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Platform> Platforms { get; set; }
         public DbSet<MediaType> MediaTypes { get; set; }
+
         public DbSet<Game> Games { get; set; }
 
+        public DbSet<FskRating> FskRatings { get; set; }
 
         public void EnsureSeedDataForContext()
         {

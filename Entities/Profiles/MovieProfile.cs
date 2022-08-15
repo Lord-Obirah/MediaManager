@@ -9,7 +9,8 @@ namespace MediaManager.Entities
             CreateMap<Movie, MovieReadApi>();
 
             CreateMap<Movie, MovieListReadApi>()
-                .ForMember(dest => dest.MediaType, opt => opt.MapFrom(src => src.MediaType.Name));
+                .ForMember(dest => dest.MediaType, opt => opt.MapFrom(src => src.MediaType.Name))
+                .ForMember(dest => dest.FskRating, opt => opt.MapFrom(src => src.FskRating.Name));
 
             CreateMap<MovieWriteApi, Movie>();
         }

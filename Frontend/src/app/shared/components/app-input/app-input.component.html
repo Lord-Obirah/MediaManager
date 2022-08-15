@@ -1,0 +1,7 @@
+<dx-text-box
+  [disabled]="this.isDisabled"
+  placeholder="{{ this.placeholder }}"
+  [value]="this.value"
+  valueChangeEvent="keyup change"
+  (onValueChanged)="this.value = $event.value"
+></dx-text-box>

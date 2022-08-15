@@ -1,5 +1,13 @@
 <div style='padding: 5px 0 0 5px'>
-  <button class="btn btn-primary" [disabled]="!this.paginationHeader.previousPageLink" (click)="this.onClick(this.paginationHeader.previousPageLink)">Previous</button>&nbsp;
-  <span>Seite: <input type="text" style="width: 4ch;" value='{{this.paginationHeader.currentPage}}' [ngModel]="this.paginationHeader.currentPage" (ngModelChange)="this.subject.next($event)" /> von {{this.paginationHeader.totalPages}}, gesamt: {{this.paginationHeader.totalCount}}&nbsp;&nbsp;</span>
-  <button class="btn btn-primary" [disabled]="!this.paginationHeader.nextPageLink" (click)="this.onClick(this.paginationHeader.nextPageLink)">Next</button>
+    <button class="btn btn-primary" [disabled]="!this.paginationHeader.previousPageLink" (click)="this.onClick(this.paginationHeader.previousPageLink)">Previous</button>&nbsp;
+    <span>
+        &nbsp;Seite&nbsp;
+    </span>
+    <span>
+        <app-input [value]="(this.paginationHeader && this.paginationHeader.currentPage) ? this.paginationHeader.currentPage.toString() : ''"
+                   (valueChange)="this.subject.next($event)"
+        ></app-input>&nbsp;von&nbsp;{{this.paginationHeader.totalPages}}, gesamt: {{this.paginationHeader.totalCount}}
+        &nbsp;
+    </span>
+    <button class="btn btn-primary" [disabled]="!this.paginationHeader.nextPageLink" (click)="this.onClick(this.paginationHeader.nextPageLink)">Next</button>
 </div>

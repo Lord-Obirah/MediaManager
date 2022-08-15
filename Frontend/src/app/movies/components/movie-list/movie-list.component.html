@@ -7,7 +7,9 @@
     <div class="row">
       <div class="col-md-1">Filter:</div>
       <div class="col-md-4">
-        <input type="text" [(ngModel)]="this.listFilterValue">
+        <app-input
+          (valueChange)="this.performFiltering($event)"
+        ></app-input>
       </div>
     </div>
     <div class="row">&nbsp;</div>
@@ -41,7 +43,7 @@
               <td>{{(((this.paginationHeader.currentPage ? this.paginationHeader.currentPage : 1) - 1) * (this.paginationHeader.pageSize ? this.paginationHeader.pageSize : 50)) + (i + 1)}}</td>
               <td><a [routerLink]="['/movies', result.id]">{{result.title}}</a></td>
               <td>{{result.mediaType}}</td>
-              <td>{{result.fsk}}</td>
+              <td>{{result.fskRating}}</td>
             </tr>
           </tbody>
         </table>

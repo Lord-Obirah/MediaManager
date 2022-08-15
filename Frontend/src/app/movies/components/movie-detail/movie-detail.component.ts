@@ -7,6 +7,7 @@ import {IMovie} from "../../interfaces/movie";
 import {IMediaType} from "../../interfaces/mediatype";
 import {DataService} from "../../../shared/services/data.service";
 import {NotificationService} from "../../../shared/services/notification.service";
+import {IFskRating} from "../../interfaces/fskRating";
 
 @Component({
   templateUrl: './movie-detail.component.html',
@@ -16,6 +17,7 @@ export class MovieDetailComponent implements OnInit {
   public pageTitle: string = 'Film';
   public result$: Observable<HttpResponse<IMovie>> = new Observable<HttpResponse<IMovie>>();
   public mediaTypes$: Observable<HttpResponse<IMediaType[]>> = new Observable<HttpResponse<IMediaType[]>>();
+  public fskRatings$: Observable<HttpResponse<IFskRating[]>> = new Observable<HttpResponse<IFskRating[]>>();
 
   public formGroup: UntypedFormGroup;
 
@@ -28,7 +30,8 @@ export class MovieDetailComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
       id: [],
       title: [Validators.required],
-      mediaTypeId: [Validators.required]
+      mediaTypeId: [Validators.required],
+      fskRatingId: [Validators.required]
     });
   }
 
@@ -42,6 +45,7 @@ export class MovieDetailComponent implements OnInit {
       }}));
 
     this.mediaTypes$ = this.dataService.getDataList<IMediaType>('mediaTypes')
+    this.fskRatings$ = this.dataService.getDataList<IFskRating>('fskRatings')
   }
 
   submit() {

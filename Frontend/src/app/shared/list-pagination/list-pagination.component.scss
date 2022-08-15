@@ -1,1 +1,22 @@
+:host ::ng-deep dx-text-box, .dx-texteditor-input, .dx-textbox, .dx-texteditor-input-container  {
+  width: 5ch;
+  float: left;
+}
 
+button {
+  float: left;
+}
+
+div {
+  float: left;
+  height: 50px;
+  padding: 0;
+  border: 0px solid black;
+  span {
+    float: left;
+    top: 50%;
+    height: 100%;
+    vertical-align: middle;
+    border: 0px solid green;
+  }
+}

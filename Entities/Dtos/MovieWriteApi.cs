@@ -7,8 +7,12 @@ namespace MediaManager.Entities
     {
         [Required]
         public string Title { get; set; }
+        
         [Required]
         public Guid MediaTypeId { get; set; }
+       
+        [Required]
+        public Guid FskRatingId { get; set; }
 
         ///// <inheritdoc />
         //public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)

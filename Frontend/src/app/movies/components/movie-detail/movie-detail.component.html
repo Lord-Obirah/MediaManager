@@ -9,22 +9,42 @@
           <!-- Form Group (username)-->
           <div class="mb-3">
             <label class="small mb-1" for="id">Id</label>
-            <input class="form-control" id="id" formControlName="id" type="text" readonly>
+            <app-input
+              id="id"
+              formControlName="id"
+              [isDisabled]="true"
+            ></app-input>
           </div>
           <!-- Form Row-->
           <div class="row gx-3 mb-3">
-            <!-- Form Group (first name)-->
+            <!-- Form Group (title)-->
             <div class="col-md-6">
               <label class="small mb-1" for="title">Titel</label>
-              <input class="form-control" id="title" formControlName="title" type="text" placeholder="Titel eingeben">
+              <app-input
+                id="title"
+                formControlName="title"
+                [placeholder]="'Titel eingeben'"
+              ></app-input>
             </div>
-            <!-- Form Group (last name)-->
+            <!-- Form Group (mediatype)-->
             <div class="col-md-6">
               <label class="small mb-1" for="mediaTypeId">Medientyp</label>
               <select class="form-control custom-select" id="mediaTypeId" formControlName="mediaTypeId"
                       *ngIf="(this.mediaTypes$ | async) as mediaTypes">
                 <option *ngFor='let mediaType of mediaTypes.body; let i = index;'
                         [value]="mediaType.id">{{mediaType.name}}</option>
+              </select>
+            </div>
+          </div>
+          <!-- Form Row-->
+          <div class="row gx-3 mb-3">
+            <!-- Form Group (fsk rating)-->
+            <div class="col-md-6">
+              <label class="small mb-1" for="mediaTypeId">FSK</label>
+              <select class="form-control custom-select" id="fskRatingId" formControlName="fskRatingId"
+                      *ngIf="(this.fskRatings$ | async) as fskRatings">
+                <option *ngFor='let fskRating of fskRatings.body; let i = index;'
+                        [value]="fskRating.id">{{fskRating.name}}</option>
               </select>
             </div>
           </div>

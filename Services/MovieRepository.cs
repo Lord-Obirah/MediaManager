@@ -71,20 +71,22 @@ namespace MediaManager.Services
         private IQueryable<Movie> GetOrderedList(IOrderedQueryable<Movie> entities, QueryStringParameters queryStringParameters = null)
         {
             var queryable = entities
-                .Include(i => i.MediaType);
+                .Include(i => i.MediaType)
+                .Include(i => i.FskRating);
 
             IQueryable<Movie> returnValue = null;
-            if (queryStringParameters != null)
+
+            if (queryStringParameters == null || string.IsNullOrWhiteSpace(queryStringParameters.SearchQuery))
             {
-                if (!string.IsNullOrWhiteSpace(queryStringParameters.SearchQuery))
-                {
-                    var searchQuery = queryStringParameters.SearchQuery.Trim().ToLower();
-                    returnValue = queryable.Where(w => w.Title.ToLower().Contains(searchQuery) ||
-                                         w.MediaType.Name.ToLower().Contains(searchQuery));
-                }
+                return returnValue ?? queryable;
             }
 
-            return returnValue ?? queryable;
+            var searchQuery = queryStringParameters.SearchQuery.Trim().ToLower();
+            returnValue = queryable.Where(w => w.Title.ToLower().Contains(searchQuery) ||
+                                               w.MediaType.Name.ToLower().Contains(searchQuery) ||
+                                               w.FskRating.Name.ToLower().Contains(searchQuery));
+
+            return returnValue;
         }
     }
 }

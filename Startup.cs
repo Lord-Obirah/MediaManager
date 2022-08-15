@@ -98,6 +98,7 @@ namespace MediaManager
             services.AddScoped<IMovieRepository, MovieRepository>();
             services.AddScoped<IRepository<Platform>, PlatformRepository>();
             services.AddScoped<IRepository<MediaType>, MediaTypeRepository>();
+            services.AddScoped<IRepository<FskRating>, FskRatingRepository>();
             services.AddScoped<IConfigurationRepository, ConfigurationRepository>();
             services.AddScoped<IApplicationConfiguration, ApplicationConfiguration>();
             services.AddScoped<IDatabaseConfiguration, DatabaseConfiguration>();

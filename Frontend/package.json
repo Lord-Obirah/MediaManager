@@ -19,6 +19,8 @@
     "@angular/platform-browser-dynamic": "^14.1.2",
     "@angular/router": "^14.1.2",
     "bootstrap": "^5.2.0",
+    "devextreme": "^22.1.4",
+    "devextreme-angular": "^22.1.4",
     "ngx-toastr": "^15.0.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

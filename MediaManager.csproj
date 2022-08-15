@@ -69,6 +69,7 @@
     <Folder Include="FrontEnd" />
     <Folder Include="FrontEnd\src\app\movies\components" />
     <Folder Include="FrontEnd\src\app\shared" />
+    <Folder Include="FrontEnd\src\app\shared\components" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

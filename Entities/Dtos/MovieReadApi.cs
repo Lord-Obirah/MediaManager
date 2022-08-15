@@ -7,5 +7,6 @@ namespace MediaManager.Entities
         public Guid Id { get; set; }
         public string Title { get; set; }
         public Guid MediaTypeId { get; set; }
+        public Guid FskRatingId { get; set; }
     }
 }

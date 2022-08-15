@@ -22,6 +22,7 @@ namespace MediaManager.Services
             //TODO
             //_PropertyMappings.Add(new PropertyMapping<AuthorDto, Author>(_AuthorPropertyMapping));
             _PropertyMappings.Add(new PropertyMapping<MediaTypeReadApi, MediaType>(_DefaultPropertyMapping));
+            _PropertyMappings.Add(new PropertyMapping<FskRatingReadApi, FskRating>(_DefaultPropertyMapping));
             _PropertyMappings.Add(new PropertyMapping<MovieReadApi, Movie>(_DefaultPropertyMapping));
         }
         

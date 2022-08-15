@@ -32,10 +32,6 @@ export class ListPaginationComponent implements OnInit, OnDestroy {
           currentPageLink.page = page;
           this.onClick(currentPageLink);
         }
-        else
-        {
-          this.paginationHeader.currentPage = this.paginationHeader.currentPageLink.page;
-        }
       })).subscribe();
   }
 

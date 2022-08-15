@@ -19,16 +19,6 @@ export class MovieListComponent implements OnInit {
   private behaviorSubject = new BehaviorSubject<IQueryParameter>({ orderBy: 'Title' })
   private dueTime: number = 500;
 
-  public get listFilterValue(): string {
-    return this._listFilterValue;
-  }
-
-  public set listFilterValue(input: string)
-  {
-    this._listFilterValue = input;
-    this.performFiltering(input);
-  }
-
   constructor(private dataService: DataService) {
   }
 
@@ -45,7 +35,7 @@ export class MovieListComponent implements OnInit {
       }));
   }
 
-  private performFiltering(filterValue: string): void {
+  public performFiltering(filterValue: string): void {
     filterValue = filterValue.toLowerCase();
     const queryParameter = this.paginationHeader.currentPageLink;
     queryParameter.searchQuery = filterValue;
