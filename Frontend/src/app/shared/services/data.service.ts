@@ -14,7 +14,13 @@ export class DataService {
 
   public updateData<T>(entityType: string, id: string, data: T): Observable<HttpResponse<T>> {
     let url = this.getUrl(entityType, id);
-    return this.http.put<T>(url, data, { observe: 'response' })
+    return id ? this.http.put<T>(url, data, { observe: 'response' })
+      .pipe(
+        tap(data => console.log('All: ', JSON.stringify(data, null, 4))),
+        catchError(this.handleError)
+      )
+    :
+    this.http.post<T>(url, data, { observe: 'response' })
       .pipe(
         tap(data => console.log('All: ', JSON.stringify(data, null, 4))),
         catchError(this.handleError)

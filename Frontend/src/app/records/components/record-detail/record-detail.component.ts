@@ -3,34 +3,32 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {HttpResponse} from "@angular/common/http";
 import {UntypedFormBuilder, UntypedFormGroup, Validators} from "@angular/forms";
 import {Observable, tap} from "rxjs";
-import {IMovie} from "../../interfaces/movie";
-import {IMediaType} from "../../interfaces/mediatype";
-import {IFskRating} from "../../interfaces/fskRating";
+import {IRecord} from "../../interfaces/record";
 import {DataService} from "../../../shared/services/data.service";
 import {NotificationService} from "../../../shared/services/notification.service";
 
 @Component({
-  templateUrl: './movie-detail.component.html',
-  styleUrls: ['./movie-detail.component.scss']
+  templateUrl: './record-detail.component.html',
+  styleUrls: ['./record-detail.component.scss']
 })
-export class MovieDetailComponent implements OnInit {
-  public pageTitle: string = 'Film';
-  public result$: Observable<HttpResponse<IMovie>> = new Observable<HttpResponse<IMovie>>(subscriber => {
+export class RecordDetailComponent implements OnInit {
+  public pageTitle: string = 'CD';
+  public result$: Observable<HttpResponse<IRecord>> = new Observable<HttpResponse<IRecord>>(subscriber => {
     //TODO find another way to initialize the form for a new object
-      subscriber.next(new HttpResponse<IMovie>(
+      subscriber.next(new HttpResponse<IRecord>(
         {
           body: {
             id: '',
             title: '',
             mediaTypeId: '',
-            fskRatingId: ''
+            releaseYear: undefined,
+            tracks: []
           }
         }
       ))
     }
   );
-  public mediaTypes$: Observable<HttpResponse<IMediaType[]>> = new Observable<HttpResponse<IMediaType[]>>();
-  public fskRatings$: Observable<HttpResponse<IFskRating[]>> = new Observable<HttpResponse<IFskRating[]>>();
+  //public mediaTypes$: Observable<HttpResponse<IMediaType[]>> = new Observable<HttpResponse<IMediaType[]>>();
 
   public formGroup: UntypedFormGroup;
 
@@ -53,24 +51,24 @@ export class MovieDetailComponent implements OnInit {
 
     if (id?.toLowerCase() != 'new') {
       //TODO find another way to initialize the form for a new object and show all necessary controls
-      this.result$ = this.dataService.getData<IMovie>("movies", id).pipe(tap(data => {
+      this.result$ = this.dataService.getData<IRecord>("records", id).pipe(tap(data => {
         if (data && data.body) {
           this.formGroup.patchValue(data.body);
         }
       }));
     }
-
-    this.mediaTypes$ = this.dataService.getDataList<IMediaType>('mediaTypes')
-    this.fskRatings$ = this.dataService.getDataList<IFskRating>('fskRatings')
+    //
+    // this.mediaTypes$ = this.dataService.getDataList<IMediaType>('mediaTypes')
+    // this.fskRatings$ = this.dataService.getDataList<IFskRating>('fskRatings')
   }
 
   submit() {
     if (this.formGroup.valid) {
       const data = this.formGroup.getRawValue();
       console.log(data);
-      this.dataService.updateData<IMovie>('movies', this.formGroup.value.id, this.formGroup.value).subscribe({
+      this.dataService.updateData<IRecord>('records', this.formGroup.value.id, this.formGroup.value).subscribe({
         next: (res) => {
-          this.router.navigate(['/movies']);
+          this.router.navigate(['/records']);
           this.notificationService.success(`Speichern erfolgreich: ${res.body?.title}`)
         },
         error: (err) => {

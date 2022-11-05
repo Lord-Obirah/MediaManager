@@ -6,6 +6,7 @@ import {HomeComponent} from './components/home/home.component';
 import {RouterModule} from "@angular/router";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MovieModule} from './movies/movie.module';
+import {BandModule} from './bands/band.module';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import {MovieModule} from './movies/movie.module';
       {path: '', redirectTo: 'home', pathMatch: 'full'},
       {path: '**', redirectTo: 'home', pathMatch: 'full'},
     ]),
-    MovieModule
+    MovieModule,
+    BandModule
   ],
   providers: [],
   bootstrap: [AppComponent]

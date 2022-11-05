@@ -3,34 +3,29 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {HttpResponse} from "@angular/common/http";
 import {UntypedFormBuilder, UntypedFormGroup, Validators} from "@angular/forms";
 import {Observable, tap} from "rxjs";
-import {IMovie} from "../../interfaces/movie";
-import {IMediaType} from "../../interfaces/mediatype";
-import {IFskRating} from "../../interfaces/fskRating";
+import {IBand} from "../../interfaces/band";
 import {DataService} from "../../../shared/services/data.service";
 import {NotificationService} from "../../../shared/services/notification.service";
 
 @Component({
-  templateUrl: './movie-detail.component.html',
-  styleUrls: ['./movie-detail.component.scss']
+  templateUrl: './band-detail.component.html',
+  styleUrls: ['./band-detail.component.scss']
 })
-export class MovieDetailComponent implements OnInit {
-  public pageTitle: string = 'Film';
-  public result$: Observable<HttpResponse<IMovie>> = new Observable<HttpResponse<IMovie>>(subscriber => {
+export class BandDetailComponent implements OnInit {
+  public pageTitle: string = 'CD';
+  public result$: Observable<HttpResponse<IBand>> = new Observable<HttpResponse<IBand>>(subscriber => {
     //TODO find another way to initialize the form for a new object
-      subscriber.next(new HttpResponse<IMovie>(
+      subscriber.next(new HttpResponse<IBand>(
         {
           body: {
             id: '',
-            title: '',
-            mediaTypeId: '',
-            fskRatingId: ''
+            name: ''
           }
         }
       ))
     }
   );
-  public mediaTypes$: Observable<HttpResponse<IMediaType[]>> = new Observable<HttpResponse<IMediaType[]>>();
-  public fskRatings$: Observable<HttpResponse<IFskRating[]>> = new Observable<HttpResponse<IFskRating[]>>();
+  //public mediaTypes$: Observable<HttpResponse<IMediaType[]>> = new Observable<HttpResponse<IMediaType[]>>();
 
   public formGroup: UntypedFormGroup;
 
@@ -42,9 +37,7 @@ export class MovieDetailComponent implements OnInit {
 
     this.formGroup = this.formBuilder.group({
       id: [''],
-      title: ['', Validators.required], //TODO fix required in new form
-      mediaTypeId: ['', Validators.required], //TODO implement app-select
-      fskRatingId: ['', Validators.required] //TODO implement app-select
+      name: ['', Validators.required] //TODO fix required in new form
     });
   }
 
@@ -53,25 +46,25 @@ export class MovieDetailComponent implements OnInit {
 
     if (id?.toLowerCase() != 'new') {
       //TODO find another way to initialize the form for a new object and show all necessary controls
-      this.result$ = this.dataService.getData<IMovie>("movies", id).pipe(tap(data => {
+      this.result$ = this.dataService.getData<IBand>("bands", id).pipe(tap(data => {
         if (data && data.body) {
           this.formGroup.patchValue(data.body);
         }
       }));
     }
-
-    this.mediaTypes$ = this.dataService.getDataList<IMediaType>('mediaTypes')
-    this.fskRatings$ = this.dataService.getDataList<IFskRating>('fskRatings')
+    //
+    // this.mediaTypes$ = this.dataService.getDataList<IMediaType>('mediaTypes')
+    // this.fskRatings$ = this.dataService.getDataList<IFskRating>('fskRatings')
   }
 
   submit() {
     if (this.formGroup.valid) {
       const data = this.formGroup.getRawValue();
       console.log(data);
-      this.dataService.updateData<IMovie>('movies', this.formGroup.value.id, this.formGroup.value).subscribe({
+      this.dataService.updateData<IBand>('bands', this.formGroup.value.id, data).subscribe({
         next: (res) => {
-          this.router.navigate(['/movies']);
-          this.notificationService.success(`Speichern erfolgreich: ${res.body?.title}`)
+          this.router.navigate(['/bands']);
+          this.notificationService.success(`Speichern erfolgreich: ${res.body?.name}`)
         },
         error: (err) => {
           console.log('HTTP Error', err);

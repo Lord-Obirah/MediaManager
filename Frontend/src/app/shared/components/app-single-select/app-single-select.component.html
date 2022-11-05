@@ -1,0 +1,10 @@
+<dx-select-box
+  [(value)]="this.value"
+  (onItemClick)="this.rowClicked.emit($event.itemData.object.value)"
+  [dataSource]="this.dataSource"
+  valueExpr="valueExpr"
+  displayExpr="displayExpr"
+  placeholder="Bitte auswählen"
+  (onBlur)="this.touch()"
+>
+</dx-select-box>

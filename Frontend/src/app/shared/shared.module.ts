@@ -1,32 +1,36 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {ListPaginationComponent} from "./list-pagination/list-pagination.component";
 import {ToastrModule} from "ngx-toastr";
-import { AppInputComponent } from './components/app-input/app-input.component';
 
-import { DxTextBoxModule } from 'devextreme-angular';
+import {DxSelectBoxModule, DxTextBoxModule} from 'devextreme-angular';
+import {ListPaginationComponent} from "./list-pagination/list-pagination.component";
+import {AppSingleSelectComponent} from './components/app-single-select/app-single-select.component';
+import {AppInputComponent} from './components/app-input/app-input.component';
 
 @NgModule({
   declarations: [
     ListPaginationComponent,
     AppInputComponent,
+    AppSingleSelectComponent,
   ],
   imports: [
     CommonModule,
     FormsModule,
     ToastrModule.forRoot(),
-    DxTextBoxModule
+    DxTextBoxModule,
+    DxSelectBoxModule
   ],
-  providers: [
-  ],
+  providers: [],
   exports: [
     ListPaginationComponent,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    AppInputComponent
+    AppInputComponent,
+    AppSingleSelectComponent
   ]
 })
+
 export class SharedModule {
 }

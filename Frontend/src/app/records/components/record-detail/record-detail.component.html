@@ -26,32 +26,10 @@
                 [placeholder]="'Titel eingeben'"
               ></app-input>
             </div>
-            <!-- Form Group (mediatype)-->
-            <div class="col-md-6">
-              <label class="small mb-1" for="mediaTypeId">Medientyp</label>
-              <app-singleselect
-                id="mediaTypeId"
-                formControlName="mediaTypeId"
-                [placeholder]="'Bitte auswählen'"
-                [dataSource$]="this.mediaTypes$"
-                [displayColumn]="'name'"
-                [valueColumn]="'id'"
-              ></app-singleselect>
-            </div>
+
           </div>
           <!-- Form Row-->
           <div class="row gx-3 mb-3">
-            <!-- Form Group (fsk rating)-->
-            <div class="col-md-6">
-              <label class="small mb-1" for="fskRatingId">FSK</label>
-              <app-singleselect
-                id="fskRatingId"
-                formControlName="fskRatingId"
-                [dataSource$]="this.fskRatings$"
-                [displayColumn]="'name'"
-                [valueColumn]="'id'"
-              ></app-singleselect>
-            </div>
           </div>
       </div>
     </div>

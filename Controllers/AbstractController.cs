@@ -219,7 +219,7 @@ namespace MediaManager.Controllers
 
         private IActionResult GetCreatedAtActionResult(TData entity)
         {
-            var output = Mapper.Map<TDataWriteApi>(entity);
+            var output = Mapper.Map<TDataReadApi>(entity);
             return CreatedAtAction(nameof(GetEntity), new { id = entity.Id }, output);
         }
 

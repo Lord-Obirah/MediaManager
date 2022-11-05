@@ -1,7 +1,8 @@
 <dx-text-box
   [disabled]="this.isDisabled"
   placeholder="{{ this.placeholder }}"
-  [value]="this.value"
+  [(ngModel)]="this.value"
   valueChangeEvent="keyup change"
   (onValueChanged)="this.value = $event.value"
+  (onBlur)="this.touch()"
 ></dx-text-box>

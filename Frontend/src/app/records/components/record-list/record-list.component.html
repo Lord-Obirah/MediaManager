@@ -1,7 +1,7 @@
 <div class="card">
   <div class="card-header">
     {{this.title}}
-    <button [routerLink]="['/movies/new']" class="btn btn-primary">Neu</button>
+    <button [routerLink]="['/records/new']" class="btn btn-primary">Neu</button>
   </div>
 
   <div class="card-body">
@@ -35,14 +35,14 @@
                 Medium
               </th>
               <th>
-                FSK
+                Veröffentlichungsjahr
               </th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor='let result of response.body; let i = index;'>
               <td>{{(((this.paginationHeader.currentPage ? this.paginationHeader.currentPage : 1) - 1) * (this.paginationHeader.pageSize ? this.paginationHeader.pageSize : 50)) + (i + 1)}}</td>
-              <td><a [routerLink]="['/movies', result.id]">{{result.title}}</a></td>
+              <td><a [routerLink]="['/records', result.id]">{{result.title}}</a></td>
               <td>{{result.mediaType}}</td>
               <td>{{result.fskRating}}</td>
             </tr>
