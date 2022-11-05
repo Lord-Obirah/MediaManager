@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Net;
 using AutoMapper;
 using MediaManager.Entities;
 using MediaManager.Helpers;
@@ -251,8 +252,8 @@ namespace MediaManager.Controllers
                 {
                            fields = queryStringParameters.Fields,
                            orderBy = queryStringParameters.OrderBy,
-                           searchQuery = queryStringParameters.SearchQuery,
-                           filter = queryStringParameters.Filter,
+                           searchQuery = WebUtility.UrlEncode(queryStringParameters.SearchQuery),
+                           filter = WebUtility.UrlEncode(queryStringParameters.Filter),
                            page = queryStringParameters.Page + pageOffset,
                            pageSize = queryStringParameters.PageSize,
                            url = string.Empty

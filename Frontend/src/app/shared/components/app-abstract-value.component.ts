@@ -90,7 +90,7 @@ export abstract class AppAbstractValueComponent<T> implements OnInit, ControlVal
 
   public touch(): void {
     this.formControl?.updateValueAndValidity({ emitEvent: true });
-    this.formControl.setValue(this._value);
+    this.formControl?.setValue(this._value);
     this.touchHandler.forEach(h => h());
   }
 

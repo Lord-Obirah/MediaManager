@@ -19,8 +19,8 @@ namespace MediaManager.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Bands", x => x.Id);
+                    table.UniqueConstraint("PK_UniqueName", x => x.Name);
                 });
-
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
