@@ -100,6 +100,7 @@ namespace MediaManager
             services.AddScoped<IRepository<MediaType>, MediaTypeRepository>();
             services.AddScoped<IRepository<FskRating>, FskRatingRepository>();
             services.AddScoped<IRepository<Band>, BandRepository>();
+            services.AddScoped<IRepository<Record>, RecordRepository>();
             services.AddScoped<IConfigurationRepository, ConfigurationRepository>();
             services.AddScoped<IApplicationConfiguration, ApplicationConfiguration>();
             services.AddScoped<IDatabaseConfiguration, DatabaseConfiguration>();

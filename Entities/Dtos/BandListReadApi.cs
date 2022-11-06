@@ -1,6 +1,6 @@
 namespace MediaManager.Entities;
 
-public class BandListReadApi : MediaTypeReadApi
+public class BandListReadApi : BandReadApi
 {
 
 }

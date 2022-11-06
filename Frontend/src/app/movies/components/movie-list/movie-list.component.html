@@ -1,70 +1,14 @@
-<div class="card">
-  <div class="card-header">
-    {{this.title}}
-    <button [routerLink]="['/movies/new']" class="btn btn-primary">Neu</button>
-  </div>
-
-  <div class="card-body">
-    <div class="row">
-      <div class="col-md-1">Filter:</div>
-      <div class="col-md-4">
-        <app-input
-          (valueChange)="this.performFiltering($event)"
-        ></app-input>
-      </div>
-    </div>
-    <div class="row">&nbsp;</div>
-    <div class="table-responsive" *ngIf="(this.results$ | async) as response; else loading">
-      <div *ngIf="response.body && response.body.length > 0; else noresults">
-        <div class="row">
-          <app-list-pagination
-            [paginationHeader]="this.paginationHeader"
-            (onNavigationButtonClick)="this.handleNavigationEvent($event)"
-          ></app-list-pagination>
-        </div>
-        <table class="table">
-          <thead>
-            <tr>
-              <th>
-                #
-              </th>
-             <th>
-                Titel
-              </th>
-              <th>
-                Medium
-              </th>
-              <th>
-                FSK
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor='let result of response.body; let i = index;'>
-              <td>{{(((this.paginationHeader.currentPage ? this.paginationHeader.currentPage : 1) - 1) * (this.paginationHeader.pageSize ? this.paginationHeader.pageSize : 50)) + (i + 1)}}</td>
-              <td><a [routerLink]="['/movies', result.id]">{{result.title}}</a></td>
-              <td>{{result.mediaType}}</td>
-              <td>{{result.fskRating}}</td>
-            </tr>
-          </tbody>
-        </table>
-        <app-list-pagination
-          [paginationHeader]="this.paginationHeader"
-          (onNavigationButtonClick)="this.handleNavigationEvent($event)"
-        ></app-list-pagination>
-      </div>
-    </div>
-    <ng-template #loading>
-      <div class="d-flex justify-content-center">
-        <div class="spinner-border" style="width: 3rem; height: 3rem;"  role="status">
-          <span class="sr-only"></span>
-        </div>
-      </div>
-    </ng-template>
-    <ng-template #noresults>
-      <div class="d-flex justify-content-center">
-        Keine Ergebnisse verfügbar
-      </div>
-    </ng-template>
-  </div>
-</div>
+<app-list
+  [title]="'Filme'"
+  [orderBy]="'Title'"
+  [entityType]="'movies'"
+  [headerColumns]="['Name', 'Medium', 'FSK']"
+  (listResponse)="this.handleListResponse($event)"
+>
+  <tr *ngFor='let result of this.response; let i = index;'>
+    <td>{{this.getRowNumber(i)}}</td>
+    <td><a [routerLink]="[result.id]">{{result.title}}</a></td>
+    <td>{{result.mediaType}}</td>
+    <td>{{result.fskRating}}</td>
+  </tr>
+</app-list>

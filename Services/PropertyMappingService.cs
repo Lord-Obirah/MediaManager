@@ -25,6 +25,7 @@ namespace MediaManager.Services
             _PropertyMappings.Add(new PropertyMapping<FskRatingReadApi, FskRating>(_DefaultPropertyMapping));
             _PropertyMappings.Add(new PropertyMapping<MovieReadApi, Movie>(_DefaultPropertyMapping));
             _PropertyMappings.Add(new PropertyMapping<BandReadApi, Band>(_DefaultPropertyMapping));
+            _PropertyMappings.Add(new PropertyMapping<RecordReadApi, Record>(_DefaultPropertyMapping));
         }
 
         public Dictionary<string, PropertyMappingValue> GetPropertyMapping
