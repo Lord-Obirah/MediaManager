@@ -1,8 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {HttpResponse} from "@angular/common/http";
-import {UntypedFormBuilder, UntypedFormGroup, Validators} from "@angular/forms";
-import {Observable, tap} from "rxjs";
+import {UntypedFormBuilder} from "@angular/forms";
 import {IRecord} from "../../interfaces/record";
 import {DataService} from "../../../shared/services/data.service";
 import {NotificationService} from "../../../shared/services/notification.service";

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {HttpResponse} from "@angular/common/http";
-import {UntypedFormBuilder, UntypedFormGroup, Validators} from "@angular/forms";
+import {UntypedFormBuilder, Validators} from "@angular/forms";
 import {Observable, tap} from "rxjs";
 import {IMovie} from "../../interfaces/movie";
 import {IMediaType} from "../../interfaces/mediatype";
@@ -40,7 +40,7 @@ export class MovieDetailComponent extends AppDetailComponent<IMovie> implements 
   override ngOnInit(): void {
     super.ngOnInit();
 
-    if(!this.id){
+    if (this.id?.toLowerCase() == 'new') {
       this.result$ = new Observable<HttpResponse<IMovie>>(subscriber => {
           //TODO find another way to initialize the form for a new object
           subscriber.next(new HttpResponse<IMovie>(

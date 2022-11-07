@@ -18,7 +18,6 @@
       <div *ngIf="response.body && response.body.length > 0; else noresults">
         <div class="row">
           <app-list-pagination
-            [paginationHeader]="this.paginationHeader"
             (onNavigationButtonClick)="this.handleNavigationEvent($event)"
           ></app-list-pagination>
         </div>
@@ -39,7 +38,6 @@
           </tbody>
         </table>
         <app-list-pagination
-          [paginationHeader]="this.paginationHeader"
           (onNavigationButtonClick)="this.handleNavigationEvent($event)"
         ></app-list-pagination>
       </div>

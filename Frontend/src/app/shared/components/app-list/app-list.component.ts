@@ -1,10 +1,10 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {BehaviorSubject, debounceTime, mergeMap, Observable, tap} from "rxjs";
 import {HttpResponse} from "@angular/common/http";
-import {IMovieList} from "../../../movies/interfaces/movieList";
 import {IPaginationHeader} from "../../interfaces/paginationHeader";
 import {IQueryParameter} from "../../interfaces/queryParameter";
 import {DataService} from "../../services/data.service";
+import {PaginationHeaderService} from "../../services/pagination-header.service";
 
 @Component({
   selector: 'app-list',
@@ -21,18 +21,15 @@ export class AppListComponent<T> implements OnInit {
   @Input()
   public headerColumns: string[];
 
-  @Output()
-  public listResponse: EventEmitter<HttpResponse<T[]>> = new EventEmitter<HttpResponse<T[]>>();
-
-  public response: T[] | null;
   public results$: Observable<HttpResponse<T[]>> = new Observable<HttpResponse<T[]>>();
   public _listFilterValue: string = '';
-  public paginationHeader!: IPaginationHeader;
 
+  public paginationHeader: IPaginationHeader;
   private behaviorSubject: BehaviorSubject<IQueryParameter>;
   private dueTime: number = 500;
 
-  public constructor(private dataService: DataService) {
+  public constructor(private dataService: DataService,
+                     private paginationHeaderService: PaginationHeaderService) {
   }
 
   ngOnInit(): void {
@@ -41,9 +38,9 @@ export class AppListComponent<T> implements OnInit {
       debounceTime(this.dueTime),
       mergeMap(queryParameter => this.dataService.getDataList<T>(this.entityType, queryParameter)),
       tap(response => {
-        this.getPaginationHeader(response);
-        this.listResponse.emit(response);
+
       }));
+      this.paginationHeaderService.paginationHeader.subscribe(s => this.paginationHeader = s);
   }
 
   public performFiltering(filterValue: string): void {
@@ -56,23 +53,5 @@ export class AppListComponent<T> implements OnInit {
 
   public handleNavigationEvent(event: IQueryParameter): void {
     this.behaviorSubject.next(event);
-  }
-
-  public handleListResponse(listResponse: HttpResponse<T[]>){
-    this.response = listResponse.body;
-    this.getPaginationHeader(listResponse);
-  }
-
-  public getRowNumber(index: number): number {
-    return (((this.paginationHeader.currentPage ? this.paginationHeader.currentPage : 1) - 1) * (this.paginationHeader.pageSize ? this.paginationHeader.pageSize : 50)) + (index + 1)
-  }
-
-  protected getPaginationHeader(response: HttpResponse<T[]>): void
-  {
-      const paginationHeader = response.headers.get('X-Pagination');
-      if(typeof(paginationHeader) === 'string') {
-        this.paginationHeader = JSON.parse(paginationHeader);
-        console.log(this.paginationHeader);
-      }
   }
 }

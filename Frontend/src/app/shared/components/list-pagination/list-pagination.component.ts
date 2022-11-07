@@ -1,8 +1,8 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
-
-import {debounceTime, distinctUntilChanged, map, mergeMap, Observable, Subject, tap} from "rxjs";
+import {ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {debounceTime, map, Subject} from "rxjs";
 import {IPaginationHeader} from "../../interfaces/paginationHeader";
 import {IQueryParameter} from "../../interfaces/queryParameter";
+import {PaginationHeaderService} from "../../services/pagination-header.service";
 
 @Component({
   selector: 'app-list-pagination',
@@ -11,9 +11,7 @@ import {IQueryParameter} from "../../interfaces/queryParameter";
 })
 export class ListPaginationComponent implements OnInit, OnDestroy {
   public subject: Subject<string> = new Subject<string>();
-
-  @Input()
-  public paginationHeader!: IPaginationHeader;
+  public paginationHeader: IPaginationHeader;
 
   /**
    * Allows you to register a click handler that will be invoked when the user clicks on the button.
@@ -21,7 +19,7 @@ export class ListPaginationComponent implements OnInit, OnDestroy {
   @Output()
   public onNavigationButtonClick: EventEmitter<IQueryParameter> = new EventEmitter<IQueryParameter>();
 
-  constructor() { }
+  constructor(private paginationHeaderService: PaginationHeaderService) { }
 
   ngOnInit(): void {
     this.subject.pipe(
@@ -34,6 +32,8 @@ export class ListPaginationComponent implements OnInit, OnDestroy {
           this.onClick(currentPageLink);
         }
       })).subscribe();
+
+    this.paginationHeaderService.paginationHeader.subscribe(s => this.paginationHeader = s);
   }
 
   public onClick(event: IQueryParameter | undefined): void

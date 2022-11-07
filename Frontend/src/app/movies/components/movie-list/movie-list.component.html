@@ -3,7 +3,6 @@
   [orderBy]="'Title'"
   [entityType]="'movies'"
   [headerColumns]="['Name', 'Medium', 'FSK']"
-  (listResponse)="this.handleListResponse($event)"
 >
   <tr *ngFor='let result of this.response; let i = index;'>
     <td>{{this.getRowNumber(i)}}</td>

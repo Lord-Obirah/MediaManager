@@ -1,15 +1,17 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {IMovieList} from "../../interfaces/movieList";
-import {DataService} from "../../../shared/services/data.service";
-import {AppListComponent} from "../../../shared/components/app-list/app-list.component";
+import {AbstractAppListComponent} from "../../../shared/components/app-list/abstract-app-list.component";
+import {PaginationHeaderService} from "../../../shared/services/pagination-header.service";
+import {ListDataService} from "../../../shared/services/list-data.service";
 
 @Component({
   templateUrl: './movie-list.component.html',
   styleUrls: ['./movie-list.component.scss']
 })
-export class MovieListComponent extends AppListComponent<IMovieList> implements OnInit {
-  constructor(dataService: DataService) {
-    super(dataService);
+export class MovieListComponent extends AbstractAppListComponent<IMovieList> implements OnInit {
+  constructor(paginationHeaderService: PaginationHeaderService,
+              listDataService: ListDataService) {
+    super(paginationHeaderService, listDataService);
   }
 
   override ngOnInit(): void {

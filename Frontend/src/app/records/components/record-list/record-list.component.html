@@ -2,7 +2,6 @@
   [title]="'CDs'"
   [entityType]="'records'"
   [headerColumns]="['Band', 'Titel', 'VÖ']"
-  (listResponse)="this.handleListResponse($event)"
 >
   <tr *ngFor='let result of this.response; let i = index;'>
     <td>{{this.getRowNumber(i)}}</td>

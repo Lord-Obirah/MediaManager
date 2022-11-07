@@ -52,9 +52,6 @@ export class BandDetailComponent implements OnInit {
         }
       }));
     }
-    //
-    // this.mediaTypes$ = this.dataService.getDataList<IMediaType>('mediaTypes')
-    // this.fskRatings$ = this.dataService.getDataList<IFskRating>('fskRatings')
   }
 
   submit() {

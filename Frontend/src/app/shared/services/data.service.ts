@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import {catchError, map, Observable, of, tap, throwError} from "rxjs";
 import {HttpClient, HttpErrorResponse, HttpResponse} from "@angular/common/http";
 import {IQueryParameter} from "../interfaces/queryParameter";
+import {PaginationHeaderService} from "./pagination-header.service";
+import {ListDataService} from "./list-data.service";
 
 @Injectable({
   providedIn: 'root'
@@ -10,17 +12,14 @@ export class DataService {
 
   public apiUrl: string = 'http://localhost:5002/api'
 
-  constructor(private http: HttpClient) { } //TODO Destroy object to unsubscibe
+  constructor(private http: HttpClient,
+              private paginationHeaderService: PaginationHeaderService,
+              private listDataService: ListDataService) { }
 
   public updateData<T>(entityType: string, id: string, data: T): Observable<HttpResponse<T>> {
     let url = this.getUrl(entityType, id);
-    return id ? this.http.put<T>(url, data, { observe: 'response' })
-      .pipe(
-        tap(data => console.log('All: ', JSON.stringify(data, null, 4))),
-        catchError(this.handleError)
-      )
-    :
-    this.http.post<T>(url, data, { observe: 'response' })
+    const request = id ? this.http.put<T>(url, data, { observe: 'response' }) : this.http.post<T>(url, data, { observe: 'response' });
+    return request
       .pipe(
         tap(data => console.log('All: ', JSON.stringify(data, null, 4))),
         catchError(this.handleError)
@@ -42,7 +41,11 @@ export class DataService {
 
       return this.http.get<T[]>(url, { observe: 'response' })
         .pipe(
-        tap(data => console.log('All: ', JSON.stringify(data, null, 4))),
+        tap(data => {
+          console.log('All: ', JSON.stringify(data, null, 4));
+          this.paginationHeaderService.setPaginationHeader(data);
+          this.listDataService.setListData(data);
+        }),
           catchError(this.handleError)
       );
   }
